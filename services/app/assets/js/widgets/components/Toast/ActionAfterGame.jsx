@@ -5,25 +5,9 @@ import { connect } from 'react-redux';
 import * as selectors from '../../selectors';
 import { sendOfferToRematch, sendRejectToRematch, sendAcceptToRematch } from '../../middlewares/Game';
 import axios from 'axios';
+import NewGameButton from './NewGameButton';
 
 class ActionAfterGame extends React.Component {
-  renderButtonNewGame = () => {
-    const { gameTask: { level } } = this.props;
-    const queryParamsString = qs.stringify({ level, type: 'withRandomPlayer' });
-    const gameUrl = `/games?${queryParamsString}`;
-
-    return (
-      <button
-        type="button"
-        className="btn btn-secondary btn-block"
-        data-method="post"
-        data-csrf={window.csrf_token}
-        data-to={gameUrl}
-      >
-        New Game
-      </button>
-    );
-  };
 
   handleAcceptRematch = () => {
     const { gameTask: { level } } = this.props;
@@ -103,7 +87,7 @@ class ActionAfterGame extends React.Component {
   render () {
     return(
       <React.Fragment>
-        {this.renderButtonNewGame()}
+        <NewGameButton />
         {this.renderButtonRematch()}
       </React.Fragment>
     );
